@@ -26,7 +26,7 @@ export default function EditPCForm({ pc, onUpdate, onCancel }) {
     try {
       setMessage("⏳ Updating blog...");
 
-      const res = await fetch(`http://localhost:5050/api/pcs/${pc.id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/pcs/${pc.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

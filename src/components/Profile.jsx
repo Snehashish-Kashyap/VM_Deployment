@@ -16,14 +16,14 @@ export default function Profile() {
         }
 
         // ✅ Fetch user profile
-        const profileRes = await fetch("http://localhost:5050/api/users/profile", {
+        const profileRes = await fetch(`${import.meta.env.VITE_API_URL}/api/users/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const profileData = await profileRes.json();
         setUser(profileData);
 
         // ✅ Fetch total blogs count
-        const countRes = await fetch("http://localhost:5050/api/pcs/my/count", {
+        const countRes = await fetch(`${import.meta.env.VITE_API_URL}/api/pcs/my/count`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const countData = await countRes.json();

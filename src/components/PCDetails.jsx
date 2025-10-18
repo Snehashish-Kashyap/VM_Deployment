@@ -10,7 +10,8 @@ export default function PCDetails() {
   useEffect(() => {
     const fetchPc = async () => {
       try {
-        const res = await fetch(`http://localhost:5050/api/pcs/${id}`);
+        const res = await fetch(`/api/pcs/${id}`);
+
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Failed to load blog details");
         setPc(data);
@@ -63,7 +64,9 @@ export default function PCDetails() {
           src={
             pc.image_url.startsWith("http")
               ? pc.image_url
-              : `http://localhost:5050${pc.image_url}`
+              : `${import.meta.env.VITE_API_URL}${pc.image_url}`
+
+
           }
           alt={pc.name}
           className="w-full h-72 object-cover rounded-lg border border-green-800 mb-6 shadow-[0_0_20px_rgba(0,255,0,0.2)]"

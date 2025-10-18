@@ -28,7 +28,7 @@ export default function AddPCForm({ onAdd }) {
     try {
       setMessage("⏳ Adding blog...");
 
-      const res = await fetch("http://localhost:5050/api/pcs", {
+      const res = await fetch(`${import.meta.env.BASE_URL}/api/pcs`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

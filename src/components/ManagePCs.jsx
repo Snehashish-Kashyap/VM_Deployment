@@ -27,7 +27,7 @@ export default function ManagePCs() {
       }
 
       try {
-        const res = await fetch("http://localhost:5050/api/pcs/my", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/pcs/my`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -98,8 +98,8 @@ export default function ManagePCs() {
     try {
       const method = editingId ? "PUT" : "POST";
       const url = editingId
-        ? `http://localhost:5050/api/pcs/${editingId}`
-        : "http://localhost:5050/api/pcs";
+        ? `${import.meta.env.VITE_API_URL}/api/pcs/${editingId}`
+        : `${import.meta.env.VITE_API_URL}/api/pcs`;
 
       const formData = new FormData();
       formData.append("name", form.name);
@@ -136,7 +136,7 @@ export default function ManagePCs() {
   // ✅ Refresh user blogs
   const refreshBlogs = async () => {
     try {
-      const res = await fetch("http://localhost:5050/api/pcs/my", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/pcs/my`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -164,7 +164,7 @@ export default function ManagePCs() {
     setImagePreview(
       pc.image_url?.startsWith("http")
         ? pc.image_url
-        : `http://localhost:5050${pc.image_url}`
+        : `${import.meta.env.VITE_API_URL}${pc.image_url}`
     );
     setEditingId(pc.id);
     setMessage("✏️ Editing your blog...");
@@ -175,7 +175,7 @@ export default function ManagePCs() {
     if (!window.confirm("Delete this blog?")) return;
 
     try {
-      const res = await fetch(`http://localhost:5050/api/pcs/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/pcs/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -317,7 +317,7 @@ export default function ManagePCs() {
                   src={
                     pc.image_url.startsWith("http")
                       ? pc.image_url
-                      : `http://localhost:5050${pc.image_url}`
+                      : `${import.meta.env.VITE_API_URL}${pc.image_url}`
                   }
                   alt={pc.name}
                   className="w-full h-40 object-cover rounded-md mb-3"

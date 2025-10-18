@@ -16,8 +16,9 @@ export default function PCGrid() {
     try {
       const url =
         view === "mine"
-          ? "http://localhost:5050/api/pcs/my"
-          : "http://localhost:5050/api/pcs";
+          ? `${import.meta.env.VITE_API_URL}api/pcs/my`
+          : `${import.meta.env.VITE_API_URL}api/pcs`;
+
 
       const headers =
         view === "mine"
@@ -96,7 +97,10 @@ export default function PCGrid() {
                   src={
                     pc.image_url.startsWith("http")
                       ? pc.image_url
-                      : `http://localhost:5050${pc.image_url}`
+                      : `${import.meta.env.VITE_API_URL}${pc.image_url}`
+
+
+
                   }
                   alt={pc.name}
                   className="w-full h-48 object-cover rounded-md mb-4 border border-green-800"

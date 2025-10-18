@@ -46,7 +46,7 @@ export default function BlogDetails() {
       <p className="text-green-400 mb-3">By: {blog.owner_name}</p>
       {blog.image_url && (
         <img
-          src={`http://localhost:5050${blog.image_url}`}
+          src={`${import.meta.env.VITE_API_URL}${blog.image_url}`}
           alt={blog.name}
           className="w-full h-64 object-cover rounded-lg border border-green-700 mb-4"
         />
