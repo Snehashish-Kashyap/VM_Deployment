@@ -1,42 +1,48 @@
 import { PcModel } from "../models/PcModel.js";
 
 export const PcController = {
-  // 🟢 Fetch all blogs
+  // 🟢 Fetch all PCs
   async getAll(req, res) {
     try {
       const pcs = await PcModel.getAll();
       res.json(pcs);
     } catch (error) {
       console.error("Error fetching PCs:", error);
-      res.status(500).json({ error: "Failed to fetch blogs" });
+      res.status(500).json({ error: "Failed to fetch PCs" });
     }
   },
 
-  // 🟡 Fetch logged-in user's blogs
+  // 🟡 Fetch logged-in user's PCs
   async getMine(req, res) {
     try {
-      const userId = req.user.id; // ✅ from auth middleware
+      const userId = req.user.id;
       const pcs = await PcModel.getByUserId(userId);
       res.json(pcs);
     } catch (error) {
       console.error("Error fetching user's PCs:", error);
-      res.status(500).json({ error: "Failed to fetch user's blogs" });
+      res.status(500).json({ error: "Failed to fetch user's PCs" });
     }
   },
 
-  // 🔍 Get blog by ID
+  // 🔍 Get PC by ID
   async getById(req, res) {
     try {
-      const pc = await PcModel.getById(req.params.id);
-      if (!pc) return res.status(404).json({ error: "Blog not found" });
+      const { id } = req.params;
+      if (!id || isNaN(id)) {
+        return res.status(400).json({ error: "Invalid PC ID" });
+      }
+
+      const pc = await PcModel.getById(id);
+      if (!pc) return res.status(404).json({ error: "PC not found" });
+
       res.json(pc);
     } catch (error) {
-      console.error("Error fetching blog:", error);
-      res.status(500).json({ error: "Failed to fetch blog" });
+      console.error("Error fetching PC:", error);
+      res.status(500).json({ error: "Failed to fetch PC" });
     }
   },
 
-  // ✍️ Create new blog
+  // ✍️ Create new PC
   async create(req, res) {
     try {
       const userId = req.user.id;
@@ -51,14 +57,14 @@ export const PcController = {
         userId,
       });
 
-      res.json({ message: "✅ Blog created successfully!", pc });
+      res.json({ message: "✅ PC created successfully!", pc });
     } catch (error) {
       console.error("Error creating PC:", error);
-      res.status(500).json({ error: "Failed to create blog" });
+      res.status(500).json({ error: "Failed to create PC" });
     }
   },
 
-  // ✏️ Update blog
+  // ✏️ Update PC
   async update(req, res) {
     try {
       const userId = req.user.id;
@@ -77,14 +83,14 @@ export const PcController = {
         image_url,
       });
 
-      res.json({ message: "✅ Blog updated successfully!", pc });
+      res.json({ message: "✅ PC updated successfully!", pc });
     } catch (error) {
       console.error("Error updating PC:", error);
-      res.status(500).json({ error: "Failed to update blog" });
+      res.status(500).json({ error: "Failed to update PC" });
     }
   },
 
-  // ❌ Delete blog
+  // ❌ Delete PC
   async delete(req, res) {
     try {
       const userId = req.user.id;
@@ -94,10 +100,10 @@ export const PcController = {
       if (!isOwner) return res.status(403).json({ error: "Access denied" });
 
       await PcModel.delete(id);
-      res.json({ message: "🗑️ Blog deleted successfully" });
+      res.json({ message: "🗑️ PC deleted successfully" });
     } catch (error) {
       console.error("Error deleting PC:", error);
-      res.status(500).json({ error: "Failed to delete blog" });
+      res.status(500).json({ error: "Failed to delete PC" });
     }
   },
 };

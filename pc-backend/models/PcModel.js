@@ -1,7 +1,8 @@
+ // ✅ PcModel.js
 import { poolBlog as pool } from "../db/index.js";
 
 export const PcModel = {
-  // ✅ Get all blogs
+  // ✅ Get all PCs
   async getAll() {
     const result = await pool.query(
       `SELECT pcs.*, users.name AS owner_name
@@ -12,7 +13,7 @@ export const PcModel = {
     return result.rows;
   },
 
-  // ✅ Get blogs by user ID
+  // ✅ Get PCs by user ID
   async getByUserId(userId) {
     const result = await pool.query(
       `SELECT pcs.*, users.name AS owner_name
@@ -25,7 +26,7 @@ export const PcModel = {
     return result.rows;
   },
 
-  // ✅ Get one blog by ID
+  // ✅ Get one PC by ID
   async getById(id) {
     const result = await pool.query(
       `SELECT pcs.*, users.name AS owner_name
@@ -37,7 +38,7 @@ export const PcModel = {
     return result.rows[0];
   },
 
-  // ✅ Create blog
+  // ✅ Create PC
   async create({ name, description, image_url, full_description, userId }) {
     const result = await pool.query(
       `INSERT INTO pcs (name, description, image_url, full_description, user_id)
@@ -48,7 +49,7 @@ export const PcModel = {
     return result.rows[0];
   },
 
-  // ✅ Update blog
+  // ✅ Update PC
   async update({ id, name, description, image_url, full_description }) {
     const result = await pool.query(
       `UPDATE pcs
@@ -60,7 +61,7 @@ export const PcModel = {
     return result.rows[0];
   },
 
-  // ✅ Delete blog
+  // ✅ Delete PC
   async delete(id) {
     await pool.query(`DELETE FROM pcs WHERE id=$1`, [id]);
   },
@@ -72,14 +73,5 @@ export const PcModel = {
       [id, userId]
     );
     return result.rows.length > 0;
-  },
-
-  // ✅ Count total blogs by user (for Profile stats)
-  async countByUserId(userId) {
-    const result = await pool.query(
-      `SELECT COUNT(*) AS total FROM pcs WHERE user_id = $1`,
-      [userId]
-    );
-    return result.rows[0]; // { total: '3' }
   },
 };

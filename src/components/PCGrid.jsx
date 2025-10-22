@@ -16,8 +16,8 @@ export default function PCGrid() {
     try {
       const url =
         view === "mine"
-          ? `${import.meta.env.VITE_API_URL}api/pcs/my`
-          : `${import.meta.env.VITE_API_URL}api/pcs`;
+          ? `${import.meta.env.VITE_API_URL}/api/pcs/my`
+          : `${import.meta.env.VITE_API_URL}/api/pcs`;
 
 
       const headers =
@@ -127,7 +127,9 @@ export default function PCGrid() {
 
                 {/* 🔗 Open in new tab */}
                 <a
-                  href={`http://localhost:5173/pc/${pc.id}`}
+                  // href={`http://localhost:5173/pc/${pc.id}`}
+                  href={`/pc/${pc.id}`}
+
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-4 py-2 bg-green-500 text-black font-semibold rounded-md 
